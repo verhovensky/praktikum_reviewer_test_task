@@ -7,7 +7,7 @@ class Record:
         self.amount = amount  # Здесь можно передать кол-во, но какого типа? USD? EUR?
         # При таком подходе возможно использовать кол-во для любого наследника.
         # Наверное стоит - либо конструировать класс на основе необходимого поля, либо использовать setter...
-        # Либо применить применить паттерн композиция...
+        # Либо применить применить паттерн композиция, typing, DI (внедрение зависимостей) - на ваш выбор.
         self.date = (
             dt.datetime.now().date() if  # Вместо if else блока можно указать параметр по умолчанию в конструкторе.
             not
@@ -61,7 +61,7 @@ class CaloriesCalculator(Calculator):
             return f'Сегодня можно съесть что-нибудь' \
                    f' ещё, но с общей калорийностью не более {x} кКал'
         else:
-            return('Хватит есть!')  # Скобки действительно нужны? Мы ведь возвращаем строку, а не tuple
+            return('Хватит есть!')  # Скобки действительно нужны?
 
 
 class CashCalculator(Calculator):
@@ -94,7 +94,7 @@ class CashCalculator(Calculator):
             currency_type = 'USD'
         elif currency_type == 'eur':
             cash_remained /= EURO_RATE
-            currency_type = 'Euro'
+            currency_type = 'Euro'  # eur = Euro, a USD = USD
         elif currency_type == 'rub':
             cash_remained == 1.00  # Строка никак не влияет на код...
             # Либо нужен отдельный курс для рубля и других валют СНГ
